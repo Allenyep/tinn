@@ -6,18 +6,21 @@
 #include <time.h>
 
 // Error function.
+// 错误函数
 static float err(float a, float b)
 {
     return 0.5f * powf(a - b, 2.0f);
 }
 
 // Partial derivative of error function.
+// 错误函数偏导数
 static float pderr(float a, float b)
 {
     return a - b;
 }
 
 // Total error.
+// 总误差
 static float terr(const float* tg, const float* o, int size)
 {
     float sum = 0.0f;
@@ -27,24 +30,28 @@ static float terr(const float* tg, const float* o, int size)
 }
 
 // Activation function.
+// 激活函数
 static float act(float a)
 {
     return 1.0f / (1.0f + expf(-a));
 }
 
 // Partial derivative of activation function.
+// 激活函数偏导数
 static float pdact(float a)
 {
     return a * (1.0f - a);
 }
 
 // Floating point random from 0.0 - 1.0.
+// 随机浮点数 0.0-1.0
 static float frand()
 {
     return rand() / (float) RAND_MAX;
 }
 
 // Back propagation.
+// 反向传播
 static void backwards(const Tinn t, const float* in, const float* tg, float rate)
 {
     for(int i = 0; i < t.nhid; i++)
@@ -66,6 +73,7 @@ static void backwards(const Tinn t, const float* in, const float* tg, float rate
 }
 
 // Forward propagation.
+// 正向传播
 static void forewards(const Tinn t, const float* in)
 {
     // Calculate hidden layer neuron values.
@@ -87,6 +95,7 @@ static void forewards(const Tinn t, const float* in)
 }
 
 // Randomizes weights and biases.
+// 随机权值和阀值。
 static void twrand(const Tinn t)
 {
     for(int i = 0; i < t.nw; i++) t.w[i] = frand() - 0.5f;
